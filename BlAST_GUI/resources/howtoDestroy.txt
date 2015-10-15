@@ -1,0 +1,21 @@
+To remove, call either frm.pack_forget() or frm.grid_forget() depending on whether the frame was packed or grided.
+
+Then call frm.destroy() if you aren't going to use it again, or hold onto the reference and repack or regrid when you want to show it again.
+
+pack_forget and grid_forget will only remove widgets from view, it doesn't destroy them.
+
+Maybe, make all 5 BLASTS then then just toggle through them?
+
+If you use pack_forget, you can later show the widget again calling pack again. If you want to permanently delete it, 
+call destroy on the widget (then you won't be able to re-add it).
+
+If you use the grid method, you can use grid_forget or grid_remove to hide the widget.
+
+import sys
+import os
+def restart_program():
+    """Restarts the current program.
+    Note: this function does not return. Any cleanup action (like
+    saving data) must be done before calling this function."""
+    python = sys.executable
+    os.execl(python, python, * sys.argv)
