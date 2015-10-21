@@ -86,14 +86,20 @@ clear_button.grid(row = ROW, column =6)
 makeHSpace(blastnFrm, ROW, 7)
 makeHSpace(blastnFrm, ROW, 8)
 tk.Label(blastnFrm, text='Query subrange', font=('Arial', '12', 'bold', 'underline')
-         ).grid(row = ROW, column = 9, columnspan = 2)
+         ).grid(row = ROW, column = 8, columnspan = 2)
 ROW += 1
 # textvariable needs to be assigned to global and clear button linked to it.
 query_box = tk.Text(blastnFrm, font=('Arial', 10), width = 74, height = 5, highlightbackground = 'black', 
                     highlightcolor = 'yellow')
 query_box.grid(row = ROW, column = 1, columnspan = 6, rowspan = 5)
-
-ROW+=5
+tk.Label(blastnFrm, text = 'From').grid(row = ROW, column = 8)
+query_from = tk.Entry(blastnFrm, font=('Arial', 10), width = 8)
+query_from.grid(row = ROW, column = 9)
+ROW+=1
+tk.Label(blastnFrm, text = 'To').grid(row = ROW, column = 8)
+query_to = tk.Entry(blastnFrm, font=('Arial', 10), width = 8)
+query_to.grid(row = ROW, column = 9)
+ROW+=4
 
 
 
