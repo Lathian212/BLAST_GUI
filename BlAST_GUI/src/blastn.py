@@ -25,7 +25,7 @@ ROW = 0
 def makeVSpace(parent):
     """Makes a vertical blank space in the grid with a label otherwise geometry manager collapses space"""
     global ROW
-    tk.Label(parent, text = '').grid(row=ROW, column=0)
+    tk.Label(parent, text = '').grid(row=ROW, column=1)
     ROW += 1
 def makeHSpace(parent, r, c = 0, width = 5):
     """Make a horizontal blank space which otherwise grid manager collapses."""
@@ -54,7 +54,8 @@ blastnFrm = scrCanvas.frame
 #Put in spaces and identify type of Blast.
 makeVSpace(blastnFrm)
 makeVSpace(blastnFrm)
-makeHSpace(blastnFrm, ROW)
+#Left side padding
+tk.Label(blastnFrm, text = '     ').grid(row = ROW, column = 0, rowspan = 1000)
 tk.Label(blastnFrm, text='NCBI/ BLAST+/ blastn suite', font=('Arial', '10')).grid(row = ROW , column = 1, columnspan=2)
 ROW += 1
 
@@ -62,33 +63,35 @@ ROW += 1
 makeHSpace(blastnFrm, ROW)
 blastRadio = tk.IntVar()
 R1 = tk.Radiobutton(blastnFrm, text="blastn", font=('Arial', '12'), variable=blastRadio, value=1, command=blastSwitch)
-R1.grid(row = ROW, column = 0)
+R1.grid(row = ROW, column = 1)
 R2 = tk.Radiobutton(blastnFrm, text="blastn", font=('Arial', '12'), variable=blastRadio, value=2, command=blastSwitch)
-R2.grid(row = ROW, column = 1)
+R2.grid(row = ROW, column = 2)
 R3 = tk.Radiobutton(blastnFrm, text="blastn", font=('Arial', '12'), variable=blastRadio, value=3, command=blastSwitch)
-R3.grid(row = ROW, column = 2)
+R3.grid(row = ROW, column = 3)
 R4 = tk.Radiobutton(blastnFrm, text="blastn", font=('Arial', '12'), variable=blastRadio, value=4, command=blastSwitch)
-R4.grid(row = ROW, column = 3)
+R4.grid(row = ROW, column = 4)
 R5 = tk.Radiobutton(blastnFrm, text="blastn", font=('Arial', '12'), variable=blastRadio, value=5, command=blastSwitch)
-R5.grid(row = ROW, column = 4)
+R5.grid(row = ROW, column = 5)
 blastRadio.set(1)
 ROW += 1
 
 makeVSpace(blastnFrm)
 
-tk.Label(blastnFrm, text='Enter Query Sequence', font=('Arial', '14')).grid(row = ROW , column = 0, columnspan=4)
+tk.Label(blastnFrm, text='Enter Query Sequence', font=('Arial', '14')).grid(row = ROW , column = 1, columnspan=4)
 ROW += 1
 tk.Label(blastnFrm, text='Enter accession number(s), gi(s), or FASTA sequence(s)', 
-         font=('Arial', '12', 'bold')).grid(row = ROW , column = 0, columnspan=4)
+         font=('Arial', '12', 'bold')).grid(row = ROW , column = 1, columnspan=4)
 clear_button = tk.Button(blastnFrm, text='Clear', font=('Arial', '9', 'underline'))
-clear_button.grid(row = ROW, column =5)
+clear_button.grid(row = ROW, column =6)
+makeHSpace(blastnFrm, ROW, 7)
+makeHSpace(blastnFrm, ROW, 8)
 tk.Label(blastnFrm, text='Query subrange', font=('Arial', '12', 'bold', 'underline')
-         ).grid(row = ROW, column = 6, columnspan = 2)
+         ).grid(row = ROW, column = 9, columnspan = 2)
 ROW += 1
-# 74 by 5
+# textvariable needs to be assigned to global and clear button linked to it.
 query_box = tk.Text(blastnFrm, font=('Arial', 10), width = 74, height = 5, highlightbackground = 'black', 
                     highlightcolor = 'yellow')
-query_box.grid(row = ROW, column = 0, columnspan = 6, rowspan = 5)
+query_box.grid(row = ROW, column = 1, columnspan = 6, rowspan = 5)
 
 ROW+=5
 
