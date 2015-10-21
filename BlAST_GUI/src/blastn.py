@@ -23,10 +23,14 @@ ROW = 0
 
 #Functions
 def makeVSpace(parent):
-    """Makes a blank space in the grid with a label otherwise geometry manager collapses space"""
+    """Makes a vertical blank space in the grid with a label otherwise geometry manager collapses space"""
     global ROW
-    tk.Label(parent, text='').grid(row=ROW, column=0)
+    tk.Label(parent, text = '').grid(row=ROW, column=0)
     ROW += 1
+def makeHSpace(parent, r, c = 0, width = 5):
+    """Make a horizontal blank space which otherwise grid manager collapses."""
+    spacer = ' ' * width
+    tk.Label(parent, text =  spacer).grid(row = r, column = c)
 def blastSwitch():
     """Method to switch between blast types"""
     print ( "You selected the option " + str(blastRadio.get()))
@@ -38,6 +42,7 @@ def blastSwitch():
 
 """Pop up a Tk root window and make Scrollable Canvas it's child"""
 root = tk.Tk()
+root.title('GUI for NCBI Blast+')
 w, h = root.winfo_screenwidth(), root.winfo_screenheight()
 root.geometry("%dx%d+0+0" % (w, h))
 scrCanvas = ScrCan(root)
@@ -49,10 +54,12 @@ blastnFrm = scrCanvas.frame
 #Put in spaces and identify type of Blast.
 makeVSpace(blastnFrm)
 makeVSpace(blastnFrm)
-tk.Label(blastnFrm, text='NCBI/ BLAST+/ blastn suite', font=('Arial', '10')).grid(row = ROW , column = 0, columnspan=2)
+makeHSpace(blastnFrm, ROW)
+tk.Label(blastnFrm, text='NCBI/ BLAST+/ blastn suite', font=('Arial', '10')).grid(row = ROW , column = 1, columnspan=2)
 ROW += 1
 
 #Make Horizontal radio buttons to control switching between program sets.
+makeHSpace(blastnFrm, ROW)
 blastRadio = tk.IntVar()
 R1 = tk.Radiobutton(blastnFrm, text="blastn", font=('Arial', '12'), variable=blastRadio, value=1, command=blastSwitch)
 R1.grid(row = ROW, column = 0)
@@ -71,9 +78,19 @@ makeVSpace(blastnFrm)
 
 tk.Label(blastnFrm, text='Enter Query Sequence', font=('Arial', '14')).grid(row = ROW , column = 0, columnspan=4)
 ROW += 1
-tk.Label(blastnFrm, text='Enter accession number(s), gi(s), or FASTA sequence(s)', font=('Arial', '12', 'bold')).grid(row = ROW , column = 0, columnspan=4)
-
+tk.Label(blastnFrm, text='Enter accession number(s), gi(s), or FASTA sequence(s)', 
+         font=('Arial', '12', 'bold')).grid(row = ROW , column = 0, columnspan=4)
+clear_button = tk.Button(blastnFrm, text='Clear', font=('Arial', '9', 'underline'))
+clear_button.grid(row = ROW, column =5)
+tk.Label(blastnFrm, text='Query subrange', font=('Arial', '12', 'bold', 'underline')
+         ).grid(row = ROW, column = 6, columnspan = 2)
 ROW += 1
+# 74 by 5
+query_box = tk.Text(blastnFrm, font=('Arial', 10), width = 74, height = 5, highlightbackground = 'black', 
+                    highlightcolor = 'yellow')
+query_box.grid(row = ROW, column = 0, columnspan = 6, rowspan = 5)
+
+ROW+=5
 
 
 
