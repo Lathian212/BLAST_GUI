@@ -17,7 +17,11 @@ root.title('GUI for NCBI Blast+')
 w, h = root.winfo_screenwidth(), root.winfo_screenheight()
 root.geometry("%dx%d+0+0" % (w, h))
 sCanvas = sc.ScrollableCanvas(root)
-print('Got past sCanvas')
 sFrame = sCanvas.getScrFrame()
 blastn = bn.Blastn(sFrame)
+"""
+input('Hit enter to forget inner frame')
+blastn.forgetInnerF()
+"""
 root.mainloop() 
+

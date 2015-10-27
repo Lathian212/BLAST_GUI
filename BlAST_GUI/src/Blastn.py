@@ -36,9 +36,10 @@ class Blastn:
     
     #Functions
     def forgetInnerF(self):
-        self.inFrm.forget()
+        # Destroy method works but I cannot as of yet get forget to work possibly due to interactive nature of GUI
+        self.inFrm.destroy()
     def rememberInnerF(self):
-        self.inFrm.pack()
+        self.inFrm.grid(row = 0, column = 0)
     def makeVSpace(self, parent):
         """Makes a vertical blank space in the grid with a label otherwise geometry manager collapses space"""
         tk.Label(parent, text = '').grid(row=self.ROW, column=1)
@@ -66,8 +67,6 @@ class Blastn:
     
     #Widget Layout
     def buildBlock1(self):
-        print('Got to build block 1')
-    
         #Put in spaces and identify type of Blast.
         self.makeVSpace(self.inFrm)
         self.makeVSpace(self.inFrm)
