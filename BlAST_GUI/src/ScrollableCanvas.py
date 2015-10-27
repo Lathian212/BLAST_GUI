@@ -1,7 +1,7 @@
 # http://stackoverflow.com/questions/3085696/adding-a-scrollbar-to-a-grid-of-widgets-in-tkinter
 # on Mac sometimes scrollbar sticks when window size is small.
 import tkinter as tk
-class ScrCan(tk.Frame):
+class ScrollableCanvas(tk.Frame):
     def __init__(self, root):
 
         tk.Frame.__init__(self, root)
@@ -19,10 +19,6 @@ class ScrCan(tk.Frame):
 
         #self.populate()
     
-    def swtichFrame(self, newFrame):
-        self.frame = newFrame
-        self.frame.configure(master=self.canvas)
-
     def populate(self):
         '''Put in some fake data'''
         for row in range(100):
@@ -34,10 +30,12 @@ class ScrCan(tk.Frame):
     def onFrameConfigure(self, event):
         '''Reset the scroll region to encompass the inner frame'''
         self.canvas.configure(scrollregion=self.canvas.bbox("all"))
+    def getScrFrame(self):
+        return self.frame
 
 if __name__ == "__main__":
     root=tk.Tk()
     w, h = root.winfo_screenwidth(), root.winfo_screenheight()
     root.geometry("%dx%d+0+0" % (w, h))
-    ScrCan(root).pack(side="top", fill="both", expand=True)
+    ScrollableCanvas(root).pack(side="top", fill="both", expand=True)
     root.mainloop()

@@ -89,7 +89,7 @@ class AutocompleteEntry(Entry):
                     self.listbox.destroy()
                     self.listboxUp = False
         
-# Perhaps once selection made it returns something to main module?a        
+# Perhaps once selection made it returns something to main_bk module?a        
     def selection(self, event):
         if self.listboxUp:
             self.var.set(self.listbox.get(ACTIVE))
