@@ -58,6 +58,8 @@ class DropDownList_test(Frame):
         # Set default text to first element in list but pad with spaces for max size in list.
         self.defaultText = dropList[0] + (' ' * (self.labelSize - len(dropList[0])))
         self.var.set(self.defaultText)
+        
+        #Note to self:"cannot have grid and place geometry manager fix this so can use place with drop down menu.
         self.label.grid(row =0, column =0)
     def makeButton(self):
         # Setting up button. It will be linked to whether Listbox is up or not.
@@ -66,6 +68,8 @@ class DropDownList_test(Frame):
         self.photo = PhotoImage(file='NCBI_Button.gif')
         self.button.config(image = self.photo, width ='10', height = '10')
         self.button.config(command = self.b_Handler)
+        
+        #Note to self:"cannot have grid and place geometry manager fix this so can use place with drop down menu.
         self.button.grid(row =0, column = 1, sticky = N)
     
     
