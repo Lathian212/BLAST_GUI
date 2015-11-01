@@ -16,23 +16,22 @@ import tkinter as tk
 from ScrollableCanvas import ScrollableCanvas 
 from tkinter.filedialog import askopenfilename
 from tkinter.filedialog import asksaveasfilename
-class Blastn:
+class Blastp:
     #Attached to radio buttons for switching between Blast types.
-    def __init__(self, scrFrame, ROW = 0):
-        #Globals
-        #self.ROW needs to be kept track of so code can be moved around and all the griding doesn't need to be adjust
-        #It gets its value from the RadioController object.
-        self.ROW = ROW
-        #Save a reference to canvas_frame so this class' frame can be destroyed and recreated.
-        self.scrFrame = scrFrame
-        
-        """
-        self.inFrm = tk.Frame(scrFrame)
-        
-        self.buildBlock1()
-        
-        self.inFrm.grid(row = 0, column =0)
-        """
+    def __init__(self, scrFrame):
+            #Globals
+            #self.ROW needs to be kept track of so code can be moved around and all the griding doesn't need to be adjust
+            self.ROW = 0
+            #Save a reference to canvas_frame so this class' frame can be destroyed and recreated.
+            self.scrFrame = scrFrame
+            
+            """
+            self.inFrm = tk.Frame(scrFrame)
+            
+            self.buildBlock1()
+            
+            self.inFrm.grid(row = 0, column =0)
+            """
             
     
     
@@ -62,7 +61,31 @@ class Blastn:
             tk.Label(self.inFrm, text=t).grid(row=self.ROW, column=1)
             self.ROW+=1
     #Widget Layout
-    def buildBlock1(self):        
+    def buildBlock1(self):
+        #Put in spaces and identify type of Blast.
+        self.makeVSpace(self.inFrm)
+        self.makeVSpace(self.inFrm)
+        #Left side padding
+        tk.Label(self.inFrm, text = '     ').grid(row = self.ROW, column = 0, rowspan = 1000)
+        tk.Label(self.inFrm, text='NCBI/ BLAST+/ blastn suite', font=('Arial', '10')).grid(row = self.ROW , column = 1, columnspan=2)
+        self.ROW += 1
+        
+        #Make Horizontal radio buttons to control switching between program sets.
+        self.makeHSpace(self.inFrm, self.ROW)
+        blastRadio = tk.IntVar()
+        R1 = tk.Radiobutton(self.inFrm, text="blastn", font=('Arial', '12'), variable=blastRadio, value=1, command=self.blastSwitch)
+        R1.grid(row = self.ROW, column = 1)
+        R2 = tk.Radiobutton(self.inFrm, text="blastp", font=('Arial', '12'), variable=blastRadio, value=2, command=self.blastSwitch)
+        R2.grid(row = self.ROW, column = 2)
+        R3 = tk.Radiobutton(self.inFrm, text="blastx", font=('Arial', '12'), variable=blastRadio, value=3, command=self.blastSwitch)
+        R3.grid(row = self.ROW, column = 3)
+        R4 = tk.Radiobutton(self.inFrm, text="tblastn", font=('Arial', '12'), variable=blastRadio, value=4, command=self.blastSwitch)
+        R4.grid(row = self.ROW, column = 4)
+        R5 = tk.Radiobutton(self.inFrm, text="tblastx", font=('Arial', '12'), variable=blastRadio, value=5, command=self.blastSwitch)
+        R5.grid(row = self.ROW, column = 5)
+        blastRadio.set(1)
+        self.ROW += 1
+        
         self.makeVSpace(self.inFrm)
         
         tk.Label(self.inFrm, text='Enter Query Sequence', font=('Arial', '14')).grid(row = self.ROW , column = 1, columnspan=4)
