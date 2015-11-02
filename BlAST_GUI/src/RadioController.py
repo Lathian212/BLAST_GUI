@@ -22,7 +22,7 @@ class RadioController:
         #Create an inner frame to keep consistent with other code
         self.inFrm = tk.Frame(self.scrFrame)
         #Create radio buttons
-        self.ROW = self.buildHeader(self.ROW)
+        self.buildHeader(self.ROW)
         #Grid it onto the scrollable frame
         self.inFrm.grid(row = 0, column =0)
         #Create all the Blast objects just don't invoke their build methods.
@@ -67,20 +67,20 @@ class RadioController:
         self.current_blast.buildInnerF()
           
     def buildHeader(self, ROW):
+        #Left side padding
+        tk.Label(self.inFrm).grid(row = self.ROW, column = 0, rowspan = 1000)
+        self.ROW+=1
         #Put in spaces and identify type of Blast.
         self.makeVSpace(self.inFrm)
         self.makeVSpace(self.inFrm)
-        #Left side padding
-        tk.Label(self.inFrm, text = '     ').grid(row = ROW, column = 0, rowspan = 1000)
         #Handle to change label when radio button switched
         self.prg_identity = tk.StringVar()
         self.prg_identity.set('NCBI/ BLAST+/ blastn suite' )
         self.prg_label = tk.Label(self.inFrm, textvariable = self.prg_identity, font=('Arial', '10'))
-        self.prg_label.grid(row = ROW , column = 1, columnspan=2)
-        ROW += 1
+        self.prg_label.grid(row = self.ROW , column = 1, columnspan=2)
+        self.ROW += 1
         
-        #Make Horizontal radio buttons to control switching between program sets.
-        self.makeHSpace(self.inFrm, ROW)
+
         self.radio = tk.IntVar()
         R1 = tk.Radiobutton(self.inFrm, text="blastn", font=('Arial', '12'), variable=self.radio, value=1, command=self.blastSwitch)
         R1.grid(row = ROW, column = 1)
@@ -94,6 +94,4 @@ class RadioController:
         R5.grid(row = ROW, column = 5)
         #Initially toggle blastn as on
         self.radio.set(1)
-        ROW += 1
-        #Return ROW so blast suite interfaces can be dropped
-        return ROW
+        self.ROW += 1

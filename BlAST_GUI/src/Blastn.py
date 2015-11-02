@@ -30,13 +30,6 @@ class Blastn:
         self.ROW = start_row
         #Below tkinter boolean keeps track of align two or more sequences checkbutton, initializes to false.
         self.checkBut = tk.BooleanVar() 
-        """
-        self.inFrm = tk.Frame(scrFrame)
-        
-        self.buildBlock1()
-        
-        self.inFrm.grid(row = 0, column =0)
-        """
             
     
     
