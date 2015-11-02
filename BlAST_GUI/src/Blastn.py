@@ -135,6 +135,7 @@ class Blastn:
         check_button = tk.Checkbutton(self.inFrm, text = 'Align two or more sequences', font=('Arial', 12, 'bold'),
                                       variable = self.checkBut, command = self.align2OrMore)
         check_button.grid(row = self.ROW, column = 1)
+        self.ROW+=1
         
         
         
