@@ -100,6 +100,7 @@ class Blastn:
                  ).grid(row = self.ROW, column = 8, columnspan = 2)
         self.ROW += 1
         # textvariable needs to be assigned to global and clear button linked to it.
+        # Also it needs to be scrollable in case the user puts a lot into it
         query_box = tk.Text(self.inFrm, font=('Arial', 10), width = 74, height = 5, highlightbackground = 'black', 
                             highlightcolor = 'yellow')
         query_box.grid(row = self.ROW, column = 1, columnspan = 6, rowspan = 5)
