@@ -27,11 +27,11 @@ class RadioController:
         self.inFrm.grid(row = 0, column =0)
         #Create all the Blast objects just don't invoke their build methods.
         
-        self.blastn = bn.Blastn(scrFrame, self.ROW)
-        self.blastp = bp.Blastp(scrFrame, self.ROW)
-        self.blastx = bx.Blastx(scrFrame, self.ROW)
-        self.tblastn = tbn.Tblastn(scrFrame, self.ROW)
-        self.tblastx = tbx.Tblastx(scrFrame, self.ROW)
+        self.blastn = bn.Blastn(scrFrame)
+        self.blastp = bp.Blastp(scrFrame)
+        self.blastx = bx.Blastx(scrFrame)
+        self.tblastn = tbn.Tblastn(scrFrame)
+        self.tblastx = tbx.Tblastx(scrFrame)
         #Set current_blast to blastn and invoke it's build method
         self.current_blast = self.blastn
         self.current_blast.buildInnerF()
@@ -70,9 +70,11 @@ class RadioController:
         #Left side padding
         tk.Label(self.inFrm).grid(row = self.ROW, column = 0, rowspan = 1000)
         self.ROW+=1
+        """
         #Put in spaces and identify type of Blast.
         self.makeVSpace(self.inFrm)
         self.makeVSpace(self.inFrm)
+        """
         #Handle to change label when radio button switched
         self.prg_identity = tk.StringVar()
         self.prg_identity.set('NCBI/ BLAST+/ blastn suite' )

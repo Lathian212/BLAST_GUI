@@ -18,15 +18,13 @@ from tkinter.filedialog import askopenfilename
 from tkinter.filedialog import asksaveasfilename
 class Blastx:
     #Attached to radio buttons for switching between Blast types.
-    def __init__(self, scrFrame, start_row):
+    def __init__(self, scrFrame):
         #Globals
-        #Save the value of the row after the radio buttons for when widgets have to be recreated
-        self.start_row = start_row
         #Save a reference to canvas_frame so this class' frame can be destroyed and recreated.
         self.scrFrame = scrFrame
         #self.ROW needs to be kept track of so code can be moved around and all the griding doesn't need to be adjusted
         #It gets its value from the RadioController object.
-        self.ROW = start_row 
+        self.ROW = 0
     
     #Functions
     def destroyInnerF(self):
@@ -35,10 +33,9 @@ class Blastx:
     def buildInnerF(self):
         """ Builds all the widgets for blastn suite, it adds things either of two check boxes are selected """
         self.inFrm = tk.Frame(self.scrFrame)
-        #Reset ROW to right beneath radio buttons
-        self.ROW = self.start_row
-        self.buildBlock1()
-        self.inFrm.grid(row = self.ROW, column = 0)
+        #Reset ROW to control layout in blast inner frame
+        self.ROW = 0
+        self.inFrm.grid(row = 1, column = 0)
     def makeVSpace(self, parent):
         """Makes a vertical blank space in the grid with a label otherwise geometry manager collapses space"""
         tk.Label(parent, text = '').grid(row=self.ROW, column=1)

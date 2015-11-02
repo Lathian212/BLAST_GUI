@@ -19,15 +19,12 @@ from tkinter.filedialog import asksaveasfilename
 from tkinter.tix import COLUMN
 class Blastn:
     #Attached to radio buttons for switching between Blast types.
-    def __init__(self, scrFrame, start_row):
+    def __init__(self, scrFrame):
         #Globals
-        #Save the value of the row after the radio buttons for when widgets have to be recreated
-        self.start_row = start_row
         #Save a reference to canvas_frame so this class' frame can be destroyed and recreated.
         self.scrFrame = scrFrame
         #self.ROW needs to be kept track of so code can be moved around and all the griding doesn't need to be adjusted
-        #It gets its value from the RadioController object.
-        self.ROW = start_row
+        self.ROW = 0
         #Below tkinter boolean keeps track of align two or more sequences checkbutton, initializes to false.
         self.checkBut = tk.BooleanVar() 
             
@@ -41,13 +38,14 @@ class Blastn:
     def buildInnerF(self):
         """ Builds all the widgets for blastn suite, it adds things either of two check boxes are selected """
         self.inFrm = tk.Frame(self.scrFrame)
-        #Reset ROW to right beneath radio buttons
-        self.ROW = self.start_row
+        #Reset ROW to control layout in blast inner frame
+        self.ROW = 0
         self.buildBlock1()
         #For aligning two or more sequences an entire block as to be added to the display
         if self.checkBut.get():
             self.buildBlock2()
-        self.inFrm.grid(row = self.ROW, column = 0)
+        #In scrFrame I have two frames one from radio buttons at row = 0, column =0 and this one at row = 1, column =0
+        self.inFrm.grid(row = 1, column = 0)
     def makeVSpace(self, parent):
         """Makes a vertical blank space in the grid with a label otherwise geometry manager collapses space"""
         tk.Label(parent, text = '').grid(row=self.ROW, column=1)
@@ -81,22 +79,22 @@ class Blastn:
         #Left side padding
         tk.Label(self.inFrm, text = '     ').grid(row = self.ROW, column = 0, rowspan = 1000)
         
-        tk.Label(self.inFrm, text='Enter Query Sequence', font=('Arial', '14')).grid(row = self.ROW , column = 1, columnspan=4)
+        tk.Label(self.inFrm, text='Enter Query Sequence:', font=('Arial', '14', 'underline')).grid(row = self.ROW , column = 1, 
+                                                                                                    columnspan=4, sticky = 'w')
         self.ROW += 1
         tk.Label(self.inFrm, text='Enter accession number(s), gi(s), or FASTA sequence(s)', 
-                 font=('Arial', '12', 'bold')).grid(row = self.ROW , column = 1, columnspan=4)
+                 font=('Arial', '12', 'bold')).grid(row = self.ROW , column = 1, columnspan=4, sticky ='w')
         clear_button = tk.Button(self.inFrm, text='Clear', font=('Arial', '9', 'underline'))
-        clear_button.grid(row = self.ROW, column =6)
-        self.makeHSpace(self.inFrm, self.ROW, 7)
-        self.makeHSpace(self.inFrm, self.ROW, 8)
+        clear_button.grid(row = self.ROW, column =4)
+        self.makeHSpace(self.inFrm, self.ROW, c = 5, width = 5)
         tk.Label(self.inFrm, text='Query subrange', font=('Arial', '12', 'bold', 'underline')
-                 ).grid(row = self.ROW, column = 8, columnspan = 2)
+                 ).grid(row = self.ROW, column = 6, columnspan = 4)
         self.ROW += 1
         # textvariable needs to be assigned to global and clear button linked to it.
         # Also it needs to be scrollable in case the user puts a lot into it
         query_box = tk.Text(self.inFrm, font=('Arial', 10), width = 74, height = 5, highlightbackground = 'black', 
                             highlightcolor = 'yellow')
-        query_box.grid(row = self.ROW, column = 1, columnspan = 6, rowspan = 5)
+        query_box.grid(row = self.ROW, column = 1, columnspan = 6, rowspan = 5, sticky = 'w')
         tk.Label(self.inFrm, text = 'From').grid(row = self.ROW, column = 8)
         query_from = tk.Entry(self.inFrm, font=('Arial', 10), width = 8)
         query_from.grid(row = self.ROW, column = 9)
