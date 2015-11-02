@@ -18,13 +18,15 @@ from tkinter.filedialog import askopenfilename
 from tkinter.filedialog import asksaveasfilename
 class Blastn:
     #Attached to radio buttons for switching between Blast types.
-    def __init__(self, scrFrame, ROW = 0):
+    def __init__(self, scrFrame, start_row):
         #Globals
         #self.ROW needs to be kept track of so code can be moved around and all the griding doesn't need to be adjust
         #It gets its value from the RadioController object.
-        self.ROW = ROW
+        self.start_row = start_row
         #Save a reference to canvas_frame so this class' frame can be destroyed and recreated.
         self.scrFrame = scrFrame
+        self.start_row = start_row
+        self.ROW = start_row
         
         """
         self.inFrm = tk.Frame(scrFrame)
@@ -39,12 +41,15 @@ class Blastn:
     
     #Functions
     def destroyInnerF(self):
-        # Destroy method works but I cannot as of yet get forget to work possibly due to interactive nature of GUI
+        """ Destroy method works but I cannot as of yet get forget to work possibly due to interactive nature of GUI """
         self.inFrm.destroy()
     def buildInnerF(self):
+        """ Builds all the widgets for blastn suite, it adds things either of two check boxes are selected """
         self.inFrm = tk.Frame(self.scrFrame)
+        #Reset ROW to right beneath radio buttons
+        self.ROW = self.start_row
         self.buildBlock1()
-        self.inFrm.grid(row = 0, column = 0)
+        self.inFrm.grid(row = self.ROW, column = 0)
     def makeVSpace(self, parent):
         """Makes a vertical blank space in the grid with a label otherwise geometry manager collapses space"""
         tk.Label(parent, text = '').grid(row=self.ROW, column=1)
@@ -53,6 +58,9 @@ class Blastn:
         """Make a horizontal blank space which otherwise grid manager collapses."""
         spacer = ' ' * width
         tk.Label(parent, text =  spacer).grid(row = r, column = c)
+    def loadHandler(self):
+        """Handles load file button putting selected file into -query"""
+        pass
     def buildBlock2(self):
         '''put in some fake data'''
         for row in range(100):
@@ -64,6 +72,8 @@ class Blastn:
     #Widget Layout
     def buildBlock1(self):        
         self.makeVSpace(self.inFrm)
+        #Left side padding
+        tk.Label(self.inFrm, text = '     ').grid(row = self.ROW, column = 0, rowspan = 1000)
         
         tk.Label(self.inFrm, text='Enter Query Sequence', font=('Arial', '14')).grid(row = self.ROW , column = 1, columnspan=4)
         self.ROW += 1
@@ -89,9 +99,8 @@ class Blastn:
         query_to.grid(row = self.ROW, column = 9)
         self.ROW+=4
         tk.Label(self.inFrm, text ='Or, upload file', font=('Arial', 12, 'bold')).grid(row = self.ROW, column=1)
-        """
-        load_query_button = tk.Button(self.inFrm, text='Choose File', command = (lambda : bInputHandler(ioFields)))
-        """
+        load_query_button = tk.Button(self.inFrm, text='Choose File', command = (lambda : self.loadHandler()))
+        load_query_button.grid(row = self.ROW, column = 2)
         
 
  
