@@ -1,13 +1,13 @@
 '''
 Created on Oct 10, 2015
-
+Going to try to get place manager to work with DropDownList
 @author: Lathian
 '''
 from tkinter import *
 import os
 
 
-class DropDownList_test(Frame):
+class DropDownList(Frame):
     def __init__(self, dropList, variables, field, *args, **kwargs):
         self.dropList = dropList
         self.kwargs = kwargs
