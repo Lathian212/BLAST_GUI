@@ -13,10 +13,12 @@ I will use the grid widget geometry manager as this is basically a table entry f
 This is blastn.
 '''
 import tkinter as tk
+from tkinter import ttk
+import blastFuncsDictionaries as bd
 from ScrollableCanvas import ScrollableCanvas 
 from tkinter.filedialog import askopenfilename
 from tkinter.filedialog import asksaveasfilename
-from tkinter.tix import COLUMN
+
 class Blastn:
     #Attached to radio buttons for switching between Blast types.
     def __init__(self, scrFrame):
@@ -116,9 +118,12 @@ class Blastn:
         save_query_button.grid(row = self.ROW, column = 2)
         save_status = tk.Label(self.inFrm, text='No file chosen', font=('Arial', '10'))
         save_status.grid(row = self.ROW , column = 3)
-        #Replace below with drop down list once learn place geometry manager
-        save_output_button = tk.Button(self.inFrm, text='Choose Output')
-        save_output_button.grid(row = self.ROW, column = 4)
+        #textvariable needs to be associate with the right value of the right key in the blast Dictionary
+        #bd is the blastFuncsDictionaries module
+        save_output_button = ttk.Combobox(self.inFrm, values= bd.blastn_outputfmt, textvariable= None, state='readonly',)
+        #XML format is suggested by NCBI so make it default
+        save_output_button.current(5)
+        save_output_button.grid(row = self.ROW, column = 8, columnspan = 3)
         self.ROW+=1
         tk.Label(self.inFrm, text ='Job Title', font=('Arial', 12, 'bold')).grid(row = self.ROW, column=1, sticky = 'E')
         job_title = tk.Entry(self.inFrm, font=('Arial', 10))
