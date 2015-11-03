@@ -80,7 +80,7 @@ if __name__ == '__main__':
     root = Tk()
     variables = []
     field = 'names'
-    dropDown = DropDownList_test(dropList, variables, field)
+    dropDown = DropDownList(dropList, variables, field)
     dropDown.grid(row=0, column=0)  
       
     root.mainloop()
