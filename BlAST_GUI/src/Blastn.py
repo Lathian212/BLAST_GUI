@@ -77,6 +77,8 @@ class Blastn:
         aligning two or more sequences locally"""
         self.destroyInnerF()
         self.buildInnerF()
+    def outputFmtHandler(self, row):
+        print('Row inside outputSelected = ' + str(row))
     #Widget Layout
     def buildEnterQuery(self):        
         self.makeVSpace(self.inFrm)
@@ -123,6 +125,10 @@ class Blastn:
         save_output_button = ttk.Combobox(self.inFrm, values= bd.blastn_outputfmt, textvariable= None, state='readonly',)
         #XML format is suggested by NCBI so make it default
         save_output_button.current(5)
+        #Save current ROW as global to class so if need to pop in additional widget func knows where
+        self.row_for_outputFmt = self.ROW
+        #If 6,7 or 10 picked additional options must open up
+        save_output_button.bind("<<ComboboxSelected>>", self.outputFmtHandler(self.row_for_outputFmt))
         save_output_button.grid(row = self.ROW, column = 8, columnspan = 3)
         self.ROW+=1
         tk.Label(self.inFrm, text ='Job Title', font=('Arial', 12, 'bold')).grid(row = self.ROW, column=1, sticky = 'E')
@@ -199,7 +205,7 @@ class Blastn:
         R3.grid(row = self.ROW, column = 2, columnspan = 4, sticky = 'w')
         self.blastn_type.set(1)
         self.ROW+=1
-        
+        print('At end of prg selection self.ROW = ' + str(self.ROW))
         
     
         
